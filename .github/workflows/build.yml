@@ -54,6 +54,7 @@ jobs:
           New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory -Force
           dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
 
+
       - name: Restore, build, test and analyze
         shell: powershell
         env:
