@@ -59,7 +59,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=EmployeeAdminPortal.Tests/TestResults/Coverage/coverage.opencover.xml
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
           dotnet restore .\EmployeeAdminPortal.csproj
           dotnet restore .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj
           dotnet build .\EmployeeAdminPortal.csproj --no-restore
