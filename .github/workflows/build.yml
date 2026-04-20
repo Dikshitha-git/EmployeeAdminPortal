@@ -54,14 +54,14 @@ jobs:
           New-Item -Path ${{ runner.temp }}\scanner -ItemType Directory -Force
           dotnet tool update dotnet-sonarscanner --tool-path ${{ runner.temp }}\scanner
 
-
       - name: Restore, build, test and analyze
         shell: powershell
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-          dotnet restore EmployeeAdminPortal.slnx
-          dotnet build EmployeeAdminPortal.slnx --no-restore
-          dotnet test EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj --no-build --verbosity normal
-          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+           dotnet restore .\EmployeeAdminPortal.csproj
+           dotnet restore .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj
+           dotnet build .\EmployeeAdminPortal.csproj --no-restore
+           dotnet test .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj --verbosity normal
+           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
