@@ -57,11 +57,11 @@ jobs:
       - name: Restore, build, test and analyze
         shell: powershell
         env:
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-           ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
-           dotnet restore .\EmployeeAdminPortal.csproj
-           dotnet restore .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj
-           dotnet build .\EmployeeAdminPortal.csproj --no-restore
-           dotnet test .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj --verbosity normal
-           ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner begin /k:"Dikshitha-git_EmployeeAdminPortal" /o:"dikshitha-git" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=EmployeeAdminPortal.Tests/TestResults/Coverage/coverage.opencover.xml
+          dotnet restore .\EmployeeAdminPortal.csproj
+          dotnet restore .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj
+          dotnet build .\EmployeeAdminPortal.csproj --no-restore
+          dotnet test .\EmployeeAdminPortal.Tests\EmployeeAdminPortal.Tests.csproj --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=.\TestResults\Coverage\ /p:CoverletOutputFormat=opencover
+          ${{ runner.temp }}\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
